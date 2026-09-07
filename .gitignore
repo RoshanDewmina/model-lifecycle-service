@@ -5,5 +5,3 @@ __pycache__/
 *.py[cod]
 .DS_Store
 artifacts/registry/
-evidence/generated/
-
