@@ -1,10 +1,17 @@
 {
-  "active_version": "wine-logreg-v1",
+  "active_version": "wine-logreg-v2",
   "schema_version": 1,
   "versions": {
     "wine-logreg-v1": {
       "artifact_sha256": "2cca1e4e0d5ecdf80600d9e9eb6a90710065184eb2f7bea767fa63569f67d4a2",
       "previous_active_version": null,
+      "status": "inactive"
+    },
+    "wine-logreg-v2": {
+      "artifact_sha256": "eec78d001d2ff84e2674cdac81b28b0f8a3d8b5147d2f182d49a2e9b7267548b",
+      "dataset_manifest_sha256": "e8983cdc04644bc27a92c087a46a3c96217c0bd35801879d9bba3a48569f058e",
+      "metadata_sha256": "1e0d4540a7f618f9b7a6ed6100858be8cfc02f5c45a615d8ea1bd3fd741a6a6a",
+      "previous_active_version": "wine-logreg-v1",
       "status": "active"
     }
   }

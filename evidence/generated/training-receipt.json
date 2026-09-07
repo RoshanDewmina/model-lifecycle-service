@@ -1,0 +1,146 @@
+{
+  "command": "uv run modelctl train --version wine-logreg-v2 --registry src/model_lifecycle/bundled_registry --receipt evidence/generated/training-receipt.json",
+  "dirty_tree": false,
+  "environment": {
+    "architecture": "arm64",
+    "logical_cpu_count": 10,
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.10"
+  },
+  "exit_status": 0,
+  "inputs": {
+    "counts": {
+      "heldout_test": 36,
+      "total": 178,
+      "train": 106,
+      "tuning_validation": 36
+    },
+    "dataset_id": "uci-wine-sklearn-copy",
+    "model_kind": "logistic",
+    "seed": 20260907
+  },
+  "limitations": [
+    "Small, decades-old teaching dataset; results do not establish production performance.",
+    "Cultivar prediction from laboratory measurements is only a local lifecycle demonstration.",
+    "The held-out split is evaluated once per candidate run and is not used for fitting or tuning."
+  ],
+  "measured_results": {
+    "artifact_sha256": "eec78d001d2ff84e2674cdac81b28b0f8a3d8b5147d2f182d49a2e9b7267548b",
+    "candidate_gate_passed": true,
+    "dummy_baseline_heldout_test": {
+      "accuracy": 0.4166666666666667,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          9,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "dummy_baseline_tuning_validation": {
+      "accuracy": 0.3888888888888889,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          10,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "duration_seconds": 0.08816437500354368,
+    "gate_partition": "tuning_validation",
+    "heldout_test": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          9
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "tuning_validation": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          10
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "validation_balanced_accuracy_gain_over_dummy": 0.6666666666666667
+  },
+  "schema_version": 1,
+  "source_revision": "2405bb9c4fe704dfa956654a1dc6092410d5c48f",
+  "timestamp_utc": "2026-09-07T04:39:20.546733+00:00"
+}

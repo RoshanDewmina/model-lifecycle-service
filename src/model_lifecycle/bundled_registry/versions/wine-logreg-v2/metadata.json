@@ -1,0 +1,207 @@
+{
+  "artifact": "model.skops",
+  "artifact_sha256": "eec78d001d2ff84e2674cdac81b28b0f8a3d8b5147d2f182d49a2e9b7267548b",
+  "class_names": [
+    "cultivar_1",
+    "cultivar_2",
+    "cultivar_3"
+  ],
+  "dataset_manifest": "dataset-manifest.json",
+  "dataset_manifest_sha256": "e8983cdc04644bc27a92c087a46a3c96217c0bd35801879d9bba3a48569f058e",
+  "evaluation": {
+    "dummy_baseline_heldout_test": {
+      "accuracy": 0.4166666666666667,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          9,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "dummy_baseline_tuning_validation": {
+      "accuracy": 0.3888888888888889,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          10,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "heldout_test": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          9
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "tuning_validation": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          10
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "validation_balanced_accuracy_gain_over_dummy": 0.6666666666666667
+  },
+  "feature_names": [
+    "alcohol",
+    "malic_acid",
+    "ash",
+    "alcalinity_of_ash",
+    "magnesium",
+    "total_phenols",
+    "flavanoids",
+    "nonflavanoid_phenols",
+    "proanthocyanins",
+    "color_intensity",
+    "hue",
+    "od280_od315_of_diluted_wines",
+    "proline"
+  ],
+  "limitations": [
+    "Small, decades-old teaching dataset; results do not establish production performance.",
+    "Cultivar prediction from laboratory measurements is only a local lifecycle demonstration.",
+    "The held-out split is evaluated once per candidate run and is not used for fitting or tuning."
+  ],
+  "model_kind": "logistic",
+  "release_gate": {
+    "minimum_balanced_accuracy_gain": 0.1,
+    "minimum_per_class_recall": 0.6,
+    "partition": "tuning_validation",
+    "passed": true
+  },
+  "schema_version": 2,
+  "source_dirty_tree": false,
+  "source_revision": "2405bb9c4fe704dfa956654a1dc6092410d5c48f",
+  "training_stats": {
+    "alcalinity_of_ash": {
+      "mean": 19.756603773584903,
+      "std": 3.444657303324128
+    },
+    "alcohol": {
+      "mean": 12.993679245283019,
+      "std": 0.8246684015943074
+    },
+    "ash": {
+      "mean": 2.417075471698113,
+      "std": 0.27999651945657533
+    },
+    "color_intensity": {
+      "mean": 4.947075462264152,
+      "std": 2.2664342859546447
+    },
+    "flavanoids": {
+      "mean": 2.0309433962264145,
+      "std": 1.0301854827512784
+    },
+    "hue": {
+      "mean": 0.9439245283018869,
+      "std": 0.23039390789382608
+    },
+    "magnesium": {
+      "mean": 100.00943396226415,
+      "std": 14.116426456650295
+    },
+    "malic_acid": {
+      "mean": 2.317830188679245,
+      "std": 1.1520572285943822
+    },
+    "nonflavanoid_phenols": {
+      "mean": 0.3710377358490566,
+      "std": 0.12663220584487098
+    },
+    "od280_od315_of_diluted_wines": {
+      "mean": 2.6197169811320755,
+      "std": 0.7112975885822768
+    },
+    "proanthocyanins": {
+      "mean": 1.603301886792453,
+      "std": 0.5818232917532855
+    },
+    "proline": {
+      "mean": 732.933962264151,
+      "std": 304.25083584226286
+    },
+    "total_phenols": {
+      "mean": 2.281320754716981,
+      "std": 0.6222904670797218
+    }
+  },
+  "version": "wine-logreg-v2"
+}

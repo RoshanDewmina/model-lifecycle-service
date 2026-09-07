@@ -10,7 +10,7 @@
         "src/model_lifecycle/lifecycle.py",
         "tests/test_dataset.py"
       ],
-      "source_revision": "c9dca5e83258587e3c1614767e8ab9ddd4e0d818",
+      "source_revision": "2405bb9c4fe704dfa956654a1dc6092410d5c48f",
       "measurement_refs": ["evidence/generated/training-receipt.json"],
       "receipt_refs": ["evidence/generated/training-receipt.json"],
       "conditions": "UCI Wine, seed 20260907, frozen stratified 106/36/36 train/validation/held-out identities, local Python 3.12 run",
@@ -27,12 +27,12 @@
         "src/model_lifecycle/cli.py",
         "tests/test_lifecycle.py"
       ],
-      "source_revision": "c9dca5e83258587e3c1614767e8ab9ddd4e0d818",
+      "source_revision": "2405bb9c4fe704dfa956654a1dc6092410d5c48f",
       "measurement_refs": ["evidence/generated/benchmark-receipt.json"],
       "receipt_refs": ["evidence/generated/benchmark-receipt.json"],
-      "conditions": "Local immutable version directories; promotion requires a balanced-accuracy gain of 0.10 over dummy and 0.60 recall for every class; one CLI writer at a time",
-      "limitations": "The local JSON registry has no process lock, signed manifest, remote artifact retention, staged rollout, or automatic rollback.",
-      "draft_resume_wording": "Implemented CLI-only candidate promotion and rollback with metric gates, feature-contract checks, SHA-256 verification, skops type inspection, and tests that reject a dummy candidate and tampered artifact.",
+      "conditions": "Local immutable version directories; promotion requires a tuning-validation balanced-accuracy gain of 0.10 over dummy and 0.60 validation recall for every class; held-out reporting cannot change eligibility",
+      "limitations": "The fail-fast local file lock and atomic registry replacement do not provide distributed coordination, signed manifests, remote artifact retention, staged rollout, or automatic rollback.",
+      "draft_resume_wording": "Implemented CLI-only candidate promotion and rollback with validation-driven metric gates, atomic registry updates, approved artifact/metadata/manifest identity checks, and crash and substitution regression tests.",
       "wording_status": "user_review_pending",
       "mastery_status": "pending"
     },
@@ -45,7 +45,7 @@
         "src/model_lifecycle/static/index.html",
         "tests/test_api.py"
       ],
-      "source_revision": "c9dca5e83258587e3c1614767e8ab9ddd4e0d818",
+      "source_revision": "2405bb9c4fe704dfa956654a1dc6092410d5c48f",
       "measurement_refs": [
         "evidence/generated/training-receipt.json",
         "evidence/generated/benchmark-receipt.json"
@@ -54,7 +54,7 @@
         "evidence/generated/training-receipt.json",
         "evidence/generated/benchmark-receipt.json"
       ],
-      "conditions": "One active bundled wine-logistic model, fixed 13-feature bounded numeric request, sequential in-process benchmark",
+      "conditions": "Active bundled wine-logreg-v2 model, fixed 13-feature bounded numeric request, sequential in-process benchmark",
       "limitations": "No network load, authentication, autoscaling, online labels, or production traffic was tested; the prediction endpoint is intentionally read-only and bounded.",
       "draft_resume_wording": "Served a versioned scikit-learn pipeline through FastAPI with strict 13-feature validation, model-version responses, degraded health behavior, and an evidence-focused browser interface.",
       "wording_status": "user_review_pending",

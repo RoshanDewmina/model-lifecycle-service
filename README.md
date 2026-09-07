@@ -46,7 +46,7 @@ curl -s http://127.0.0.1:8115/health
 Expected health shape:
 
 ```json
-{"status":"ok","service":"model-lifecycle-service","version":"wine-logreg-v1"}
+{"status":"ok","service":"model-lifecycle-service","version":"wine-logreg-v2"}
 ```
 
 Example prediction:
@@ -115,6 +115,8 @@ The dataset is UCI **Wine**, 178 rows and 13 numeric chemical measurements, dist
 The project uses `skops`, verifies SHA-256 hashes before loading, rejects unknown serialized types, and checks the exact feature list/count. Promotion binds the approved artifact, metadata, and dataset-manifest digests in the registry; serving and rollback reject later file substitution even if replacement metadata contains internally consistent hashes. This lowers accidental and arbitrary-code loading risk for artifacts created here; it is not a substitute for signatures or a trusted artifact store. Do not load untrusted third-party model or metadata files.
 
 The packaged default registry lives under the Python package and is only read by the ASGI service, which suits stateless read-only deployment. Local training writes to `artifacts/registry` unless another explicit path is supplied. The Docker image copies the bundled registry and runs as one process on port 8115.
+
+The bundled registry retains `wine-logreg-v1` and its original files as historical evidence. The active `wine-logreg-v2` was trained from the corrected validation-gate source revision; only versions with complete saved artifact, metadata, and manifest identities can be loaded or used as rollback targets.
 
 ```bash
 docker build -t model-lifecycle-service:local .

@@ -92,6 +92,11 @@ def main() -> None:
                 "heldout_balanced_accuracy": v1["evaluation"]["heldout_test"]["balanced_accuracy"],
                 "dummy_baseline_balanced_accuracy": v1["evaluation"]
                 ["dummy_baseline_heldout_test"]["balanced_accuracy"],
+                "tuning_validation_balanced_accuracy": v1["evaluation"]["tuning_validation"]
+                ["balanced_accuracy"],
+                "dummy_baseline_tuning_validation_balanced_accuracy": v1["evaluation"]
+                ["dummy_baseline_tuning_validation"]["balanced_accuracy"],
+                "release_gate_partition": v1["release_gate"]["partition"],
                 "candidate_rejection_observed": rejection_observed,
                 "rollback_target": rollback_state["active_version"],
                 "simulated_drift_label": drift["diagnostic_type"],
