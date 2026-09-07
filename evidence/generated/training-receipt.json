@@ -1,0 +1,118 @@
+{
+  "command": "uv run modelctl train --version wine-logreg-v1 --registry src/model_lifecycle/bundled_registry --receipt evidence/generated/training-receipt.json",
+  "dirty_tree": false,
+  "environment": {
+    "architecture": "arm64",
+    "logical_cpu_count": 10,
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.10"
+  },
+  "exit_status": 0,
+  "inputs": {
+    "counts": {
+      "heldout_test": 36,
+      "total": 178,
+      "train": 106,
+      "tuning_validation": 36
+    },
+    "dataset_id": "uci-wine-sklearn-copy",
+    "model_kind": "logistic",
+    "seed": 20260907
+  },
+  "limitations": [
+    "Small, decades-old teaching dataset; results do not establish production performance.",
+    "Cultivar prediction from laboratory measurements is only a local lifecycle demonstration.",
+    "The held-out split is evaluated once per candidate run and is not used for fitting or tuning."
+  ],
+  "measured_results": {
+    "artifact_sha256": "2cca1e4e0d5ecdf80600d9e9eb6a90710065184eb2f7bea767fa63569f67d4a2",
+    "balanced_accuracy_gain_over_dummy": 0.6666666666666667,
+    "candidate_gate_passed": true,
+    "dummy_baseline_heldout_test": {
+      "accuracy": 0.4166666666666667,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          9,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "duration_seconds": 0.12446462499792688,
+    "heldout_test": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          9
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "validation": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          10
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "schema_version": 1,
+  "source_revision": "c9dca5e83258587e3c1614767e8ab9ddd4e0d818",
+  "timestamp_utc": "2026-09-07T03:59:26.736432+00:00"
+}

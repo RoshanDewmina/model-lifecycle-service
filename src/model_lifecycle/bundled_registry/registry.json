@@ -1,0 +1,11 @@
+{
+  "active_version": "wine-logreg-v1",
+  "schema_version": 1,
+  "versions": {
+    "wine-logreg-v1": {
+      "artifact_sha256": "2cca1e4e0d5ecdf80600d9e9eb6a90710065184eb2f7bea767fa63569f67d4a2",
+      "previous_active_version": null,
+      "status": "active"
+    }
+  }
+}
