@@ -82,6 +82,7 @@ def train_candidate(
     command: str | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
+    revision, dirty = git_state()
     split = load_dataset(seed)
     train_X, train_y = split.X[split.train_idx], split.y[split.train_idx]
 
@@ -126,7 +127,6 @@ def train_candidate(
             f"artifact contains types outside the skops trusted set: {unknown_types}"
         )
 
-    revision, dirty = git_state()
     dataset_manifest = manifest(split, seed)
     write_json(version_dir / "dataset-manifest.json", dataset_manifest)
     training_stats = {
