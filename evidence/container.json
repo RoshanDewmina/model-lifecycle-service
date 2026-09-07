@@ -1,0 +1,28 @@
+{
+  "source_revision": "5c15b49af3d8034131202edca33d6cd18dc131be",
+  "command": "docker build -t career-model:review .; docker run --rm -p127.0.0.1:8315:8115 career-model:review; GET health, POST13features, POSTraw1e999",
+  "exit_status": 0,
+  "environment": "macOS-27.0-arm64-arm-64bit",
+  "container": "LinuxARM64 Python3.12.14",
+  "health": {
+    "status": "ok",
+    "service": "model-lifecycle-service",
+    "version": "wine-logreg-v2"
+  },
+  "prediction": {
+    "prediction": 0,
+    "class_name": "cultivar_1",
+    "probabilities": {
+      "cultivar_1": 0.9821088175844586,
+      "cultivar_2": 0.017086362736951098,
+      "cultivar_3": 0.0008048196785903235
+    },
+    "model_version": "wine-logreg-v2"
+  },
+  "nonfinite_status": 422,
+  "image_id": "sha256:1abaadbb943c978a59814cc78cfe6249f003ac01fcf2b0af4b4a5e99da83c2cb",
+  "limits": [
+    "Localcontainer, not yet publicdeployment",
+    "Subsequent18eb247 idempotentCLI bookkeeping+Vercelconfig covered by focusedtest, not this image"
+  ]
+}

@@ -144,3 +144,7 @@ tests/                 split, serving, failure, integrity, gate, and rollback ch
 docs/                  copied contract, license record, and interview guide
 evidence/              reproducible receipts and draft claims
 ```
+
+## Public live demo
+
+[Open Cellar Lab](https://career-model-lifecycle.vercel.app/) to run a bounded prediction through the trained `wine-logreg-v2` model. Health, prediction, validation-partition evidence, missing-input rejection, and non-finite-input rejection were verified from a clean public session. This is a free stateless Vercel Hobby deployment with a ten-second function limit and no external model calls. Training, promotion, rollback and fault controls remain local CLI operations. See `evidence/deployment.json`; the local benchmark is not a cloud latency claim.

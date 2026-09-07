@@ -1,0 +1,166 @@
+{
+  "url": "https://career-model-lifecycle.vercel.app",
+  "health": {
+    "status": "ok",
+    "service": "model-lifecycle-service",
+    "version": "wine-logreg-v2"
+  },
+  "prediction": {
+    "prediction": 0,
+    "class_name": "cultivar_1",
+    "probabilities": {
+      "cultivar_1": 0.9821088175844586,
+      "cultivar_2": 0.017086362736951115,
+      "cultivar_3": 0.0008048196785903235
+    },
+    "model_version": "wine-logreg-v2"
+  },
+  "evidence": {
+    "model_version": "wine-logreg-v2",
+    "artifact_sha256": "eec78d001d2ff84e2674cdac81b28b0f8a3d8b5147d2f182d49a2e9b7267548b",
+    "tuning_validation": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          0,
+          10
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "dummy_baseline_tuning_validation": {
+      "accuracy": 0.3888888888888889,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          14,
+          0
+        ],
+        [
+          0,
+          10,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "heldout_test": {
+      "accuracy": 1.0,
+      "balanced_accuracy": 1.0,
+      "confusion_matrix": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          0,
+          9
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "dummy_baseline_heldout_test": {
+      "accuracy": 0.4166666666666667,
+      "balanced_accuracy": 0.3333333333333333,
+      "confusion_matrix": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          15,
+          0
+        ],
+        [
+          0,
+          9,
+          0
+        ]
+      ],
+      "count": 36,
+      "per_class_recall": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "release_gate": {
+      "minimum_balanced_accuracy_gain": 0.1,
+      "minimum_per_class_recall": 0.6,
+      "partition": "tuning_validation",
+      "passed": true
+    },
+    "limitations": [
+      "Small, decades-old teaching dataset; results do not establish production performance.",
+      "Cultivar prediction from laboratory measurements is only a local lifecycle demonstration.",
+      "The held-out split is evaluated once per candidate run and is not used for fitting or tuning."
+    ]
+  },
+  "status_codes": [
+    200,
+    200,
+    200,
+    422,
+    422
+  ],
+  "note": "TLSverified httpx certifi; systemPython urllib lacked a localCA bundle in initialprobe",
+  "schema_version": 1,
+  "source_revision": "18eb247f8f305bbf1164383800a1f0d68ec4d1a1",
+  "deployment_id": "dpl_FSfH4Q2H7XRvubKJLiHue1PWVowu",
+  "provider": "Vercel personal Hobby",
+  "deployment_type": "live_stateless_prediction",
+  "timestamp_utc": "2026-09-07T05:01:37.703283+00:00",
+  "exit_status": 0,
+  "external_cost_usd": 0,
+  "configured_max_duration_seconds": 10,
+  "public_controls": "13boundedfeatures perrequest; noHTTPtraining/promotion/rollback; noexternalinferencecalls; providerfreequota pausesratherthanpaidusage",
+  "browser": "FreshChromiumpublicsession, realpredictionbutton worked; screenshot inspected",
+  "limits": [
+    "Tiny teachingdataset, no productioncapacity claim",
+    "Artifact servedreadonly; CLIregistryadministration not exposed",
+    "Historicalv1heldoutselection corrected to validation-onlygate; oldreceipts preserved",
+    "Cloudinference is verified, training/driftmeasurements remain local"
+  ]
+}
