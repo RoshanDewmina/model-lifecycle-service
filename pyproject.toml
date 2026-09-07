@@ -30,9 +30,6 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/model_lifecycle"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/model_lifecycle/static" = "model_lifecycle/static"
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
@@ -43,4 +40,3 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
-

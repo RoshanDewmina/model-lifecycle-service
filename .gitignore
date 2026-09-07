@@ -2,6 +2,7 @@
 __pycache__/
 .pytest_cache/
 .ruff_cache/
+dist/
 *.py[cod]
 .DS_Store
 artifacts/registry/
