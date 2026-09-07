@@ -25,10 +25,10 @@
     "health_status": 200,
     "heldout_balanced_accuracy": 1.0,
     "latency_ms": {
-      "max": 67.05404100648593,
-      "median": 3.930666993255727,
-      "min": 3.1687079899711534,
-      "p95": 5.490000010468066
+      "max": 44.87524999422021,
+      "median": 3.3044580050045624,
+      "min": 3.0043330043554306,
+      "p95": 4.125000006752089
     },
     "prediction": {
       "class_name": "cultivar_1",
@@ -47,9 +47,9 @@
       "color_intensity"
     ],
     "simulated_drift_label": "SIMULATED_DRIFT_DIAGNOSTIC",
-    "total_duration_seconds": 1.1063490000087768
+    "total_duration_seconds": 0.9318158749956638
   },
   "schema_version": 1,
-  "source_revision": "19633bcb53c6df194c438693263715eef4002bb8",
-  "timestamp_utc": "2026-09-07T04:00:39.228877+00:00"
+  "source_revision": "52b71386353c62aaf6354848c4293a04efbc5a38",
+  "timestamp_utc": "2026-09-07T04:01:22.670480+00:00"
 }
