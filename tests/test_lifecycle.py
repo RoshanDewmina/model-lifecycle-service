@@ -17,6 +17,7 @@ from model_lifecycle.lifecycle import (
     drift_diagnostic,
     load_active,
     promote,
+    read_registry,
     rollback,
     train_candidate,
 )
@@ -167,6 +168,11 @@ def test_rollback_rejects_substituted_approved_files(tmp_path: Path) -> None:
     with pytest.raises(ArtifactError, match="approved model identity"):
         rollback(registry, "known-v1")
     assert load_active(registry).metadata["version"] == "current-v2"
+    registry_payload = read_registry(registry)
+    registry_payload["active_version"] = "known-v1"
+    atomic_write_json(registry / "registry.json", registry_payload)
+    with pytest.raises(ArtifactError, match="approved model identity"):
+        load_active(registry)
 
 
 def lifecycle_sha256(path: Path) -> str:

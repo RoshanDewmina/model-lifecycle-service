@@ -1,0 +1,58 @@
+{
+  "command": "make benchmark",
+  "dirty_tree": false,
+  "environment": {
+    "architecture": "arm64",
+    "logical_cpu_count": 10,
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.10"
+  },
+  "exit_status": 0,
+  "inputs": {
+    "request_count": 200,
+    "seed": 20260907,
+    "workload": "sequential in-process FastAPI TestClient requests on one fixed valid sample"
+  },
+  "limitations": [
+    "Latency uses an in-process sequential TestClient workload, not a network load test.",
+    "The drift batch is generated and does not represent observed real-world data.",
+    "Small local dataset and single-machine measurements do not establish production performance."
+  ],
+  "measured_results": {
+    "candidate_rejection_observed": true,
+    "dummy_baseline_balanced_accuracy": 0.3333333333333333,
+    "dummy_baseline_tuning_validation_balanced_accuracy": 0.3333333333333333,
+    "health_status": 200,
+    "heldout_balanced_accuracy": 1.0,
+    "latency_ms": {
+      "max": 48.1242500100052,
+      "median": 3.3883339929161593,
+      "min": 3.158209001412615,
+      "p95": 3.9093330124160275
+    },
+    "prediction": {
+      "class_name": "cultivar_1",
+      "model_version": "benchmark-v1",
+      "prediction": 0,
+      "probabilities": {
+        "cultivar_1": 0.9821088175844586,
+        "cultivar_2": 0.017086362736951098,
+        "cultivar_3": 0.0008048196785903235
+      }
+    },
+    "prediction_status": 200,
+    "release_gate_partition": "tuning_validation",
+    "rollback_target": "benchmark-v1",
+    "simulated_drift_flagged_features": [
+      "alcohol",
+      "color_intensity"
+    ],
+    "simulated_drift_label": "SIMULATED_DRIFT_DIAGNOSTIC",
+    "total_duration_seconds": 1.0431194580014562,
+    "tuning_validation_balanced_accuracy": 1.0
+  },
+  "schema_version": 1,
+  "source_revision": "e0b6b8ab6d17bd35c5f726230a8dc3b523888b4f",
+  "timestamp_utc": "2026-09-07T04:40:45.614404+00:00"
+}
