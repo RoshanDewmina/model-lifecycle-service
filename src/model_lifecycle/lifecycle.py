@@ -310,6 +310,13 @@ def promote(registry: Path, version: str) -> dict[str, Any]:
             if saved != identity:
                 raise GateRejected(f"approved identity changed for version {version}")
         previous = payload["active_version"]
+        if previous == version:
+            if previous_entry is None:
+                raise ArtifactError("active version is missing its approved registry identity")
+            if previous_entry.get("status") != "active":
+                previous_entry["status"] = "active"
+                _write_registry(registry, payload)
+            return payload
         payload["versions"][version] = {
             "status": "active",
             "previous_active_version": previous,

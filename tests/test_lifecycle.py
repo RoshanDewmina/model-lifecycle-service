@@ -186,3 +186,17 @@ def test_concurrent_mutation_fails_fast_before_training(tmp_path: Path) -> None:
     with _exclusive_registry_lock(registry), pytest.raises(RegistryBusy):
         train_candidate(registry, "blocked-v1")
     assert not (registry / "versions" / "blocked-v1").exists()
+
+
+def test_repeated_promotion_of_active_identity_is_an_idempotent_no_op(tmp_path: Path) -> None:
+    registry = tmp_path / "registry"
+    train_candidate(registry, "active-v1")
+    first = promote(registry, "active-v1")
+    registry_bytes = (registry / "registry.json").read_bytes()
+
+    second = promote(registry, "active-v1")
+
+    assert second == first
+    assert second["active_version"] == "active-v1"
+    assert second["versions"]["active-v1"]["status"] == "active"
+    assert (registry / "registry.json").read_bytes() == registry_bytes
