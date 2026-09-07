@@ -13,7 +13,7 @@ flowchart LR
     D[UCI Wine\nCC BY 4.0] --> S[Stable row IDs\n60/20/20 split]
     S --> T[Train-only scaler\n+ logistic model]
     S --> B[Most-frequent\ndummy baseline]
-    T --> G{Held-out\nrelease gate}
+    T --> G{Validation\nrelease gate}
     B --> G
     G -->|pass| R[Immutable version\nhashes + metadata]
     G -->|reject| X[Active model unchanged]
@@ -23,7 +23,7 @@ flowchart LR
     K[Known promoted version] -->|CLI rollback| A
 ```
 
-The scaler and classifier are one scikit-learn `Pipeline`, so preprocessing learns only from the training partition. Candidate choice is fixed (`C=1.0`); this project does no hyperparameter tuning. The 20% validation partition is reported separately and the 20% held-out partition is never fitted. Each candidate is immutable and evaluates the held-out set once.
+The scaler and classifier are one scikit-learn `Pipeline`, so preprocessing learns only from the training partition. Candidate choice is fixed (`C=1.0`); this project does no hyperparameter search. The release gate uses only the 20% tuning-validation partition. After candidate configuration and eligibility are fixed, the 20% held-out partition is evaluated once for reporting and cannot alter promotion eligibility.
 
 ## Quick start
 
@@ -69,7 +69,7 @@ uv run modelctl promote --version candidate-v1 --registry artifacts/registry
 uv run modelctl rollback --version candidate-v1 --registry artifacts/registry
 ```
 
-The gate requires at least `0.10` balanced-accuracy improvement over a most-frequent dummy and `0.60` recall for each class. A deliberate rejection is reproducible:
+The gate requires at least `0.10` tuning-validation balanced-accuracy improvement over a most-frequent dummy and `0.60` validation recall for each class. Held-out scores remain informational. A deliberate rejection is reproducible:
 
 ```bash
 uv run modelctl train --version rejected-dummy --model dummy --registry artifacts/rejection-demo
@@ -102,6 +102,7 @@ Evidence locations:
 - `src/model_lifecycle/bundled_registry/`: read-only-capable deployed demo artifact and metadata
 - `evidence/generated/training-receipt.json`: real training/evaluation receipt
 - `evidence/generated/benchmark-receipt.json`: serving/lifecycle benchmark receipt
+- `evidence/history/`: unchanged pre-correction receipts retained with their original labels and revisions
 - `evidence/claims.json`: stable draft claims with implementation and receipt references
 - `docs/interview-guide.md`: design explanations, failure demonstrations, and exercises
 
@@ -111,7 +112,7 @@ The dataset is UCI **Wine**, 178 rows and 13 numeric chemical measurements, dist
 
 ## Artifact safety and deployment
 
-The project uses `skops`, verifies SHA-256 hashes before loading, rejects unknown serialized types, and checks the exact feature list/count. This lowers accidental and arbitrary-code loading risk for artifacts created here; it is not a substitute for signatures or a trusted artifact store. Do not load untrusted third-party model or metadata files.
+The project uses `skops`, verifies SHA-256 hashes before loading, rejects unknown serialized types, and checks the exact feature list/count. Promotion binds the approved artifact, metadata, and dataset-manifest digests in the registry; serving and rollback reject later file substitution even if replacement metadata contains internally consistent hashes. This lowers accidental and arbitrary-code loading risk for artifacts created here; it is not a substitute for signatures or a trusted artifact store. Do not load untrusted third-party model or metadata files.
 
 The packaged default registry lives under the Python package and is only read by the ASGI service, which suits stateless read-only deployment. Local training writes to `artifacts/registry` unless another explicit path is supplied. The Docker image copies the bundled registry and runs as one process on port 8115.
 
@@ -125,7 +126,7 @@ The image uses the tracked, hash-verified package artifact and does not train or
 ## Honest limits
 
 - UCI Wine is a small, easy, decades-old teaching dataset. Results do not establish business value or production accuracy.
-- The JSON active pointer has no cross-process writer lock or database transaction. Run only one local lifecycle CLI mutation at a time.
+- Lifecycle mutations serialize through a fail-fast exclusive file lock. Registry updates write and fsync a same-directory temporary file, atomically replace the prior file, and fsync the directory where supported. This protects the prior registry if a process dies before replacement; it does not provide distributed coordination or prove physical-power-loss behavior on every filesystem.
 - Artifacts have hashes but no signature, remote retention policy, staged rollout, canary, online labels, or automatic rollback.
 - The API refreshes and re-verifies the active artifact on every request for clarity, which trades throughput for simple local correctness.
 - Drift input is simulated. There is no real feature collection, delayed-label monitor, alert routing, or policy for real user data.

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+import shutil
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -40,3 +42,28 @@ def test_dependency_failure_is_non_200(tmp_path: Path) -> None:
     assert response.status_code == 503
     assert response.json()["detail"]["status"] == "error"
 
+
+def test_non_finite_raw_json_is_a_safe_422(
+    trained_registry: Path, valid_payload: dict[str, float]
+) -> None:
+    client = TestClient(create_app(trained_registry), raise_server_exceptions=False)
+    base = json.dumps(valid_payload)
+    for token in ("1e999", "NaN", "Infinity", "-Infinity"):
+        raw = base.replace("13.2", token, 1)
+        response = client.post(
+            "/predict", content=raw, headers={"content-type": "application/json"}
+        )
+        assert response.status_code == 422
+        assert response.headers["content-type"].startswith("application/json")
+
+
+def test_malformed_active_metadata_is_503_on_all_model_routes(
+    trained_registry: Path, valid_payload: dict[str, float], tmp_path: Path
+) -> None:
+    registry = tmp_path / "registry"
+    shutil.copytree(trained_registry, registry)
+    (registry / "versions" / "test-v1" / "metadata.json").write_text("[]\n")
+    client = TestClient(create_app(registry), raise_server_exceptions=False)
+    assert client.get("/health").status_code == 503
+    assert client.get("/evidence").status_code == 503
+    assert client.post("/predict", json=valid_payload).status_code == 503

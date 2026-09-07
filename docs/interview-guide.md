@@ -7,11 +7,11 @@ The service demonstrates the smallest credible ML lifecycle: deterministic data 
 ## Decisions to defend
 
 - **Why Wine?** It is public, non-sensitive, CPU-small, clearly licensed, and sufficient to demonstrate lifecycle integrity. It is deliberately not framed as a business-impact model.
-- **Why balanced accuracy and per-class recall?** Accuracy alone can hide a weak class. The gate requires a 0.10 balanced-accuracy gain over a most-frequent dummy and at least 0.60 recall for every class.
+- **Why balanced accuracy and per-class recall?** Accuracy alone can hide a weak class. The gate requires a 0.10 validation balanced-accuracy gain over a most-frequent dummy and at least 0.60 validation recall for every class. Held-out scores are reported only after the gate decision is fixed.
 - **How is leakage limited?** Stable sample hashes define disjoint train, validation, and held-out identities. Preprocessing lives inside the pipeline and fits only on training rows. No hyperparameter search touches held-out data.
 - **Why skops?** Loading pickle/joblib can execute arbitrary code. The loader checks the artifact and manifest hashes and refuses unknown skops types before loading an artifact created by this project.
 - **Why CLI-only promotion?** Promotion and rollback are operational controls. Keeping them off anonymous HTTP removes an unnecessary administration attack surface.
-- **What does rollback mean?** A target must have been promoted before. Its hash and schema are verified before the active pointer changes.
+- **What does rollback mean?** A target must have been promoted before. Its saved artifact, metadata, and manifest identity plus schema are verified before an atomic active-pointer change.
 
 ## Failure stories worth showing
 
@@ -30,5 +30,4 @@ The service demonstrates the smallest credible ML lifecycle: deterministic data 
 
 ## Limits to say plainly
 
-This is a single-process, local demonstration over 178 old rows. The registry has no cross-process locking, signature, remote storage, or staged deployment. Test scores and in-process latency do not predict production behavior. Personal mastery and contribution claims remain pending until the owner can reproduce and explain the system.
-
+This is a single-host, local demonstration over 178 old rows. Mutations serialize through a fail-fast file lock and atomically replace the registry, but it has no distributed coordination, signature, remote storage, or staged deployment. Test scores and in-process latency do not predict production behavior. Personal mastery and contribution claims remain pending until the owner can reproduce and explain the system.

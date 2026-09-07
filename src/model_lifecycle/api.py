@@ -5,8 +5,9 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
 from . import __version__
@@ -28,6 +29,17 @@ def create_app(registry: Path | None = None) -> FastAPI:
     registry_path = registry or Path(os.getenv("MODEL_REGISTRY", str(bundled_registry)))
     application = FastAPI(title="Model Lifecycle Service", version=__version__)
     state: dict[str, LoadedModel | str | None] = {"loaded": None, "error": None}
+
+    @application.exception_handler(RequestValidationError)
+    async def safe_validation_error(
+        _request: Request, exc: RequestValidationError
+    ) -> JSONResponse:
+        # Raw NaN/Infinity values cannot be JSON-encoded in FastAPI's default error payload.
+        errors = [
+            {"type": error["type"], "loc": list(error["loc"]), "msg": error["msg"]}
+            for error in exc.errors()
+        ]
+        return JSONResponse(status_code=422, content={"detail": errors})
 
     def refresh() -> LoadedModel:
         try:
@@ -86,6 +98,10 @@ def create_app(registry: Path | None = None) -> FastAPI:
         return {
             "model_version": loaded.metadata["version"],
             "artifact_sha256": loaded.metadata["artifact_sha256"],
+            "tuning_validation": evaluation.get("tuning_validation"),
+            "dummy_baseline_tuning_validation": evaluation.get(
+                "dummy_baseline_tuning_validation"
+            ),
             "heldout_test": evaluation["heldout_test"],
             "dummy_baseline_heldout_test": evaluation["dummy_baseline_heldout_test"],
             "release_gate": loaded.metadata["release_gate"],
