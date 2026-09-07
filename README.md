@@ -113,7 +113,14 @@ The dataset is UCI **Wine**, 178 rows and 13 numeric chemical measurements, dist
 
 The project uses `skops`, verifies SHA-256 hashes before loading, rejects unknown serialized types, and checks the exact feature list/count. This lowers accidental and arbitrary-code loading risk for artifacts created here; it is not a substitute for signatures or a trusted artifact store. Do not load untrusted third-party model or metadata files.
 
-The packaged default registry lives under the Python package and is only read by the ASGI service, which suits stateless read-only deployment. Local training writes to `artifacts/registry` unless another explicit path is supplied. The Docker image trains its own demo registry during build and runs as one process on port 8115.
+The packaged default registry lives under the Python package and is only read by the ASGI service, which suits stateless read-only deployment. Local training writes to `artifacts/registry` unless another explicit path is supplied. The Docker image copies the bundled registry and runs as one process on port 8115.
+
+```bash
+docker build -t model-lifecycle-service:local .
+docker run --rm -p 127.0.0.1:8115:8115 model-lifecycle-service:local
+```
+
+The image uses the tracked, hash-verified package artifact and does not train or mutate registry state at startup.
 
 ## Honest limits
 
@@ -134,4 +141,3 @@ tests/                 split, serving, failure, integrity, gate, and rollback ch
 docs/                  copied contract, license record, and interview guide
 evidence/              reproducible receipts and draft claims
 ```
-
