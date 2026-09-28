@@ -27,7 +27,7 @@ class PredictionResponse(BaseModel):
 def create_app(registry: Path | None = None) -> FastAPI:
     bundled_registry = Path(__file__).parent / "bundled_registry"
     registry_path = registry or Path(os.getenv("MODEL_REGISTRY", str(bundled_registry)))
-    application = FastAPI(title="Model Lifecycle Service", version=__version__)
+    application = FastAPI(title="ML Model Service", version=__version__)
     state: dict[str, LoadedModel | str | None] = {"loaded": None, "error": None}
 
     @application.exception_handler(RequestValidationError)
