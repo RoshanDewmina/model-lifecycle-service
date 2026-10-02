@@ -2,7 +2,7 @@
 
 A compact, runnable ML lifecycle for a non-sensitive task: predict one of three wine cultivars from 13 chemical measurements. It trains a real model, compares it with a dummy baseline, freezes train/validation/held-out identities, gates candidates, verifies artifact integrity, supports rollback, serves `/predict`, and exposes evidence in a small UI.
 
-This is portfolio evidence of implementation and verification. It is not a production-performance claim or proof of personal mastery.
+A local demonstration of a reproducible model lifecycle; see [Honest limits](#honest-limits).
 
 ## What a user can do
 
@@ -103,8 +103,6 @@ Evidence locations:
 - `evidence/generated/training-receipt.json`: real training/evaluation receipt
 - `evidence/generated/benchmark-receipt.json`: serving/lifecycle benchmark receipt
 - `evidence/history/`: unchanged pre-correction receipts retained with their original labels and revisions
-- `evidence/claims.json`: stable draft claims with implementation and receipt references
-- `docs/interview-guide.md`: design explanations, failure demonstrations, and exercises
 
 ## Data and licensing
 
@@ -141,8 +139,8 @@ The image uses the tracked, hash-verified package artifact and does not train or
 src/model_lifecycle/   dataset, schema, lifecycle, CLI, API, and UI
 scripts/benchmark.py   isolated end-to-end benchmark and receipt writer
 tests/                 split, serving, failure, integrity, gate, and rollback checks
-docs/                  copied contract, license record, and interview guide
-evidence/              reproducible receipts and draft claims
+docs/                  copied contract and license record
+evidence/              reproducible receipts
 ```
 
 ## Public live demo
